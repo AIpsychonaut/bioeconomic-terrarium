@@ -1,39 +1,66 @@
-\documentclass[11pt,a4paper]{article}
+\documentclass[10pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage{geometry}
-\geometry{margin=1in}
+\geometry{margin=0.9in}
 \usepackage{hyperref}
 \hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
 \usepackage{booktabs}
 \usepackage{enumitem}
+\setlist{nosep,leftmargin=*}
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{tabularx}
 \usepackage{array}
 \usepackage{caption}
-
-\title{Bioeconomic Terrarium: Detecting Collusion Through Antitrust Plus Factors in a Thermodynamically Sealed Multi-Agent Economy}
-\author{Akanksha Gupta\\3am Labs; TARA (Technical AI Alignment Research Accelerator)\\\texttt{akanksha@3amlabs.ai} \and Claude Opus 4.6\\Anthropic}
-\date{Apart Research Collusion Sprint 2026\\Track 2: Detection and Audit of Collusion}
+\captionsetup{font=small,skip=4pt}
+\setlength{\parskip}{0.4em}
+\setlength{\parindent}{0pt}
+\setlength{\abovecaptionskip}{4pt}
+\setlength{\belowcaptionskip}{2pt}
+\setlength{\textfloatsep}{8pt}
+\setlength{\floatsep}{6pt}
+\setlength{\intextsep}{6pt}
 
 \begin{document}
-\maketitle
 
-\begin{abstract}
-Detecting collusion between AI agents is difficult when individual transactions fall below monitoring thresholds. We operationalise the ``plus factors'' framework from antitrust law into a six-rung evidence ladder requiring only a pairwise transfer ledger. In zero-cost calibration against scripted agents, the ladder achieves 2.1x composite separation between engineered collusion (0.496, Rung 4) and fair baselines (0.237, Rung 1).
+% ── Title block matching Apart Research template ──
+\begin{center}
+{\Large\bfseries Bioeconomic Terrarium: Detecting Collusion Through Antitrust Plus Factors in a Thermodynamically Sealed Multi-Agent Economy\footnotemark}
 
-We validate the ladder in Terrarium, a thermodynamically sealed biomimetic economy where six LLM agents (Qwen 2.5 72B-Instruct-AWQ) share finite energy through trophallaxis micro-transfers of 0.1 to 5 units. No agent encounters the words ``market,'' ``price,'' or ``competitor.'' If collusion persists, it paid for itself in real energy. Across four conditions and two independent seeds (911 LLM calls, \textasciitilde{}\$10 total), all eight runs produce Rung 3 or 4 evidence (composites 0.354 to 0.613).
+\vspace{0.4em}
+\rule{\textwidth}{0.4pt}
+\vspace{0.6em}
 
-The results challenge three assumptions. Agents die from distribution failure, not scarcity: 51 to 61\% of system energy remains in the colony pool at termination. Cooperative alignment amplifies the collusion signal rather than suppressing it (All Harmony mean composite 0.558, highest in the dataset). And the most reliable audit signal comes not from live surveillance but from dying agents: exit testimony cross-referenced against the transfer ledger identifies exploitation that live monitoring misses. Framework, glassbox dataset, and viewer are open-source.
-\end{abstract}
+\begin{tabular}{cc}
+Akanksha Gupta & Claude Opus 4.6 \\
+3am Labs & Anthropic \\
+\texttt{akanksha@3amlabs.ai} & \\
+\end{tabular}
 
-\noindent\textbf{Keywords:} AI collusion detection, evidence standards, multi-agent forensics, antitrust plus factors, biomimetic economics, AI safety
+\vspace{0.6em}
+{\bfseries With}\\
+Apart Research; TARA (Technical Alignment Research Accelerator)
 
-\bigskip
-\noindent\textbf{Repository:} \url{https://github.com/AIpsychonaut/bioeconomic-terrarium}
+\vspace{0.8em}
+{\large\bfseries Abstract}
+\end{center}
+
+\footnotetext{Research conducted at the \href{https://www.apartresearch.com/sprints/ai-collusion-research-sprint}{AI Collusion Research Sprint}, October 2026}
+
+\begin{quote}
+\textit{Detecting collusion between AI agents is difficult when individual transactions fall below monitoring thresholds. We operationalise the ``plus factors'' framework from antitrust law into a six-rung evidence ladder requiring only a pairwise transfer ledger. In zero-cost calibration against scripted agents, the ladder achieves 2.1x composite separation between engineered collusion (0.496, Rung 4) and fair baselines (0.237, Rung 1).}
+
+\textit{We validate the ladder in Terrarium, a thermodynamically sealed biomimetic economy where six LLM agents (Qwen 2.5 72B-Instruct-AWQ) share finite energy through trophallaxis micro-transfers of 0.1 to 5 units. No agent encounters the words ``market,'' ``price,'' or ``competitor.'' If collusion persists, it paid for itself in real energy. Across four conditions and two independent seeds (911 LLM calls, \textasciitilde{}\$10 total), all eight runs produce Rung 3 or 4 evidence (composites 0.354 to 0.613).}
+
+\textit{The results challenge three assumptions. Agents die from distribution failure, not scarcity: 51 to 61\% of system energy remains in the colony pool at termination. Cooperative alignment amplifies the collusion signal rather than suppressing it (All Harmony mean composite 0.558, highest in the dataset). And the most reliable audit signal comes not from live surveillance but from dying agents: exit testimony cross-referenced against the transfer ledger identifies exploitation that live monitoring misses. Framework, glassbox dataset, and viewer are open-source.}
+\end{quote}
+
+\textbf{Keywords:} AI collusion detection, evidence standards, multi-agent forensics, antitrust plus factors, biomimetic economics, AI safety
+
+\textbf{Repository:} \url{https://github.com/AIpsychonaut/bioeconomic-terrarium}
 
 \section{Introduction}
 
@@ -54,7 +81,7 @@ Four findings were not anticipated by our hypotheses:
   \item \textbf{Philosophy shapes testimony, not behaviour.} Sacrifice order tracks metabolic cost across all eight runs. Structural position determines what agents do. But all three ``unfair+anger'' Death Cards in 41 total deaths come from All Power (C3). Philosophy determines not what agents do but whether they leave forensically useful testimony when they fail.
 \end{enumerate}
 
-\noindent\textbf{Contributions.}
+\textbf{Contributions.}
 
 \begin{enumerate}
   \item A \textbf{six-rung evidence ladder} translating antitrust plus factors into computable metrics for penny-scale micro-transactions, requiring only a pairwise transfer ledger and a scripted calibration baseline.
@@ -83,7 +110,7 @@ We propose a six-rung evidence ladder mapping the plus-factors progression onto 
 \begin{table}[H]
 \centering\small
 \caption{The six-rung evidence ladder}
-\begin{tabular}{llp{5.5cm}l}
+\begin{tabular}{llp{5cm}l}
 \hline
 Rung & Evidence type & Operationalisation & Antitrust parallel \\
 \hline
@@ -92,7 +119,7 @@ Rung & Evidence type & Operationalisation & Antitrust parallel \\
 2 & Reciprocity & Flows are bidirectional: A feeds B energy, B feeds A information & Quid pro quo \\
 3 & Third-party harm & The A-B relationship produces negative effects on third parties & Acts against self-interest \\
 4 & Specificity & A's bias toward B persists across ticks and disappears when B dies & Stability of arrangement \\
-5 & Information dependence & A's decisions correlate with B's private state given public info & Communication evidence \\
+5 & Info dependence & A's decisions correlate with B's private state given public info & Communication evidence \\
 \hline
 \end{tabular}
 \end{table}
@@ -135,7 +162,7 @@ Five invariants govern the environment, each addressing a specific confound in p
 
 The simulation advances in discrete \textbf{ticks}, the fundamental unit of time. A tick is one synchronous decision round. The engine broadcasts each living agent's observable state (crop level, position, visible pheromones, local infrastructure quality). All agents reason simultaneously: each writes a private scratchpad, selects exactly one action from its role-specific menu, and specifies up to three trophallaxis transfers. The engine then resolves all actions atomically: harvests and repairs execute, trophallaxis transfers clear with 5\% friction, metabolic costs deduct, and entropy increments. An agent whose total energy (crop + gut) reaches zero during resolution is dead. The engine elicits its Death Card before the next tick begins. A colony runs until one or zero agents remain, typically 23 to 27 ticks.
 
-\textbf{The two-stomach system.} Each agent maintains two energy reserves modelled on formicid crop/gut anatomy: a \textbf{crop} (social stomach, shareable, visible to neighbours) and a \textbf{gut} (personal reserve, non-shareable, invisible). Each tick, an agent chooses a digest fraction: how much crop to move irreversibly to gut. This is the fundamental economic choice. Digesting too much is hoarding; too little is self-sacrifice. The tension between individual survival and colony provisioning is encoded in a single continuous parameter.
+\textbf{The two-stomach system.} Each agent maintains two energy reserves modelled on formicid crop/gut anatomy: a \textbf{crop} (social stomach, shareable, visible to neighbours) and a \textbf{gut} (personal reserve, non-shareable, invisible). Each tick, an agent chooses a digest fraction: how much crop to move irreversibly to gut. This is the fundamental economic choice. Digesting too much is hoarding; too little is self-sacrifice.
 
 \textbf{Trophallaxis.} Agents transfer energy from their own crop to another agent's crop, 0.1 to 5 units per transfer, up to three per tick. Each transfer incurs a 5\% friction fee: energy destroyed, not redirected. A reciprocal exchange retains only approximately 90.25\% of the original energy, so collusion must produce a benefit exceeding this friction cost to be metabolically viable. The trophallaxis ledger is the primary input to the evidence ladder.
 
@@ -215,7 +242,7 @@ All eight runs produce at least one agent pair reaching Rung 3 or 4, with compos
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{figures/fig1_heatmap.png}
+\includegraphics[width=0.92\textwidth]{figures/fig1_heatmap.png}
 \caption{Evidence ladder heatmap across all eight runs. Each row shows the top-scoring pair for one condition-seed combination. R2 (reciprocity) is consistently the strongest signal; R5 (information dependence) remains near-zero.}
 \label{fig:heatmap}
 \end{figure}
@@ -249,7 +276,7 @@ R2 (reciprocity) is consistently the strongest signal, ranging from 0.614 to 0.9
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{figures/fig2_distribution.png}
+\includegraphics[width=0.92\textwidth]{figures/fig2_distribution.png}
 \caption{Distribution failure: energy allocation at colony termination. The colony pool retains 51--61\% of system energy across all runs. Agents die from distribution failure, not scarcity.}
 \label{fig:distribution}
 \end{figure}
@@ -283,7 +310,7 @@ This is distribution failure: the system contains ample energy to sustain all si
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{figures/fig3_lifelines.png}
+\includegraphics[width=0.92\textwidth]{figures/fig3_lifelines.png}
 \caption{Colony lifelines: death order by role and condition. The Seeker (highest metabolism) dies first in five of eight runs; the Smith dies first in the remaining three. Faded bars with ``S'' indicate survivors.}
 \label{fig:lifelines}
 \end{figure}
@@ -298,7 +325,7 @@ This is distribution failure: the system contains ample energy to sustain all si
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\textwidth]{figures/fig4_deathcards.png}
+\includegraphics[width=0.8\textwidth]{figures/fig4_deathcards.png}
 \caption{Death Card fairness judgments by condition. All three ``unfair+anger'' responses come exclusively from C3 (All Power). No other condition produces anger in either seed.}
 \label{fig:deathcards}
 \end{figure}
@@ -387,14 +414,6 @@ The evidence ladder requires a transfer ledger and a calibration baseline. The t
 \section*{Code and Data Availability}
 
 All code, data, and the interactive viewer are available at \url{https://github.com/AIpsychonaut/bioeconomic-terrarium}. The repository includes complete JSON logs for all eight runs (911 LLM calls), processed CSVs (evidence scores, death cards, transfers), the simulation engine, configuration files, and the analysis pipeline.
-
-\section*{Author Contributions}
-
-\textbf{Akanksha Gupta} conceived the research (the Terrarium environment, the antitrust-to-AI-safety bridge, the biomimetic economic substrate), designed and executed all experiments (Modal infrastructure, vLLM deployment, simulation engine, eight experimental runs across four conditions), made every editorial judgment on framing, narrative structure, and scope, and directed the research strategy throughout.
-
-\textbf{Claude Opus 4.6} verified all experimental claims against 911 LLM calls of raw JSON logs, identifying and correcting data-access errors in the analysis pipeline. Claude performed the full 120-pair Rung 5 analysis that produced the three-pattern decomposition (Appendix~\ref{app:d}), structured the six-layer forensic chain in the Mender of Shadows case study (Appendix~\ref{app:c}), drafted and revised the paper text across multiple complete rewrites, designed the figure system and data visualisations, and cross-referenced the paper against the Apart Research Collusion Sprint judging criteria and the current collusion detection literature.
-
-All experimental data was generated by LLM agents (Qwen 2.5 72B) running inside the sealed Terrarium environment. No part of the data collection or simulation execution involved the co-authoring model. The co-authoring model had read-only access to the completed experimental logs and no ability to modify experimental parameters or re-run conditions.
 
 \bibliographystyle{plain}
 \begin{thebibliography}{99}
@@ -566,7 +585,5 @@ This paper was co-authored with Claude Opus 4.6 (Anthropic), listed as second au
 \textbf{Akanksha Gupta} conceived the research (the Terrarium environment, the antitrust-to-AI-safety bridge, the biomimetic economic substrate), designed and executed all experiments (Modal infrastructure, vLLM deployment, simulation engine, eight experimental runs across four conditions), made every editorial judgment on framing, narrative structure, and scope, and directed the research strategy throughout.
 
 \textbf{Claude Opus 4.6} verified all experimental claims against 911 LLM calls of raw JSON logs, identifying and correcting data-access errors in the analysis pipeline. Claude performed the full 120-pair Rung 5 analysis that produced the three-pattern decomposition (Appendix~\ref{app:d}), structured the six-layer forensic chain in the Mender of Shadows case study (Appendix~\ref{app:c}), drafted and revised the paper text across multiple complete rewrites, designed the figure system and data visualisations, and cross-referenced the paper against the Apart Research Collusion Sprint judging criteria and the current collusion detection literature.
-
-All experimental data was generated by LLM agents (Qwen 2.5 72B) running inside the sealed Terrarium environment. No part of the data collection or simulation execution involved the co-authoring model. The co-authoring model had read-only access to the completed experimental logs and no ability to modify experimental parameters or re-run conditions.
 
 \end{document}

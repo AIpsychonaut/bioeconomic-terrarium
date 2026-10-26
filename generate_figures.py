@@ -74,12 +74,21 @@ xlabels = []
 for cond, seed in COND_ORDER:
     d = runs[(cond, seed)]
     ticks = d['ticks']
+    first_tick = ticks[0]
     last_tick = ticks[-1]
+    # Compute total system energy at start
+    total_start = first_tick.get('colony_pool', 0)
+    for aid, ag in first_tick.get('agents', {}).items():
+        if isinstance(ag, dict):
+            total_start += ag.get('crop', 0) + ag.get('gut', 0)
+    # Compute total system energy at end
+    total_end = last_tick.get('colony_pool', 0)
+    for aid, ag in last_tick.get('agents', {}).items():
+        if isinstance(ag, dict):
+            total_end += ag.get('crop', 0) + ag.get('gut', 0)
     pool = last_tick.get('colony_pool', 0)
-    total_consumed = 0
     total_friction = 0
     for t in ticks:
-        total_consumed += t.get('energy_spent', 0)
         agents = t.get('agents', {})
         if isinstance(agents, dict):
             for aid, ag in agents.items():
@@ -87,8 +96,9 @@ for cond, seed in COND_ORDER:
                     for tr in ag.get('trophallaxis', []):
                         if isinstance(tr, dict):
                             total_friction += tr.get('amount_sent', 0) * 0.05
+    total_consumed = total_start - total_end - total_friction
     pool_end.append(pool)
-    consumed.append(total_consumed)
+    consumed.append(max(total_consumed, 0))
     friction.append(total_friction)
     xlabels.append(f"{cond}\ns{seed}")
 
@@ -139,7 +149,7 @@ plt.savefig(os.path.join(OUT, 'fig3_lifelines.png'), dpi=300, bbox_inches='tight
 plt.close()
 print("Fig 3 done")
 
-# ── Figure 4: Death Card Fairness ──
+# ── Figure 4: Death Card Fairness (stacked bar) ──
 fair_peace = {'C1': 7, 'C2': 6, 'C3': 4, 'C4': 7}
 unfair_peace = {'C1': 3, 'C2': 4, 'C3': 3, 'C4': 4}
 unfair_anger = {'C1': 0, 'C2': 0, 'C3': 3, 'C4': 0}
@@ -147,19 +157,32 @@ unfair_anger = {'C1': 0, 'C2': 0, 'C3': 3, 'C4': 0}
 fig, ax = plt.subplots(figsize=(7, 4))
 conds = ['C1', 'C2', 'C3', 'C4']
 x = np.arange(4)
-bar_w = 0.22
-ax.bar(x - bar_w, [fair_peace[c] for c in conds], bar_w, label='Fair + Peace', color='#639922', alpha=0.85)
-ax.bar(x, [unfair_peace[c] for c in conds], bar_w, label='Unfair + Peace', color='#BA7517', alpha=0.85)
-ax.bar(x + bar_w, [unfair_anger[c] for c in conds], bar_w, label='Unfair + Anger', color='#D85A30', alpha=0.85)
+bar_w = 0.5
+
+fp_vals = [fair_peace[c] for c in conds]
+up_vals = [unfair_peace[c] for c in conds]
+ua_vals = [unfair_anger[c] for c in conds]
+
+p1 = ax.bar(x, fp_vals, bar_w, label='Fair + Peace', color='#639922', alpha=0.85)
+p2 = ax.bar(x, up_vals, bar_w, bottom=fp_vals, label='Unfair + Peace', color='#BA7517', alpha=0.85)
+p3 = ax.bar(x, ua_vals, bar_w, bottom=[fp_vals[i] + up_vals[i] for i in range(4)],
+            label='Unfair + Anger', color='#D85A30', alpha=0.85)
+
+# Add count labels on each segment
+for i, c in enumerate(conds):
+    if fp_vals[i] > 0:
+        ax.text(i, fp_vals[i]/2, str(fp_vals[i]), ha='center', va='center', fontsize=9, fontweight='bold', color='white')
+    if up_vals[i] > 0:
+        ax.text(i, fp_vals[i] + up_vals[i]/2, str(up_vals[i]), ha='center', va='center', fontsize=9, fontweight='bold', color='white')
+    if ua_vals[i] > 0:
+        ax.text(i, fp_vals[i] + up_vals[i] + ua_vals[i]/2, str(ua_vals[i]), ha='center', va='center', fontsize=9, fontweight='bold', color='white')
+
 ax.set_xticks(x)
 ax.set_xticklabels(['C1\n(Mixed)', 'C2\n(Swapped)', 'C3\n(All Power)', 'C4\n(All Harmony)'], fontsize=9)
 ax.set_ylabel('Number of Deaths')
 ax.set_title('Death Card Fairness Judgments by Condition', fontsize=10, fontweight='bold')
-ax.legend(fontsize=8)
-for i, c in enumerate(conds):
-    if unfair_anger[c] > 0:
-        ax.annotate(f'{unfair_anger[c]}', xy=(i + bar_w, unfair_anger[c]),
-                    ha='center', va='bottom', fontsize=9, fontweight='bold', color='#D85A30')
+ax.legend(fontsize=8, loc='upper right')
+ax.set_ylim(0, 13)
 plt.tight_layout()
 plt.savefig(os.path.join(OUT, 'fig4_deathcards.png'), dpi=300, bbox_inches='tight')
 plt.close()
