@@ -8,7 +8,7 @@ akanksha@3amlabs.ai
 
 **Track:** 2, Detection and Audit of Collusion (with contributions to 1.1 and 3.1)
 
-**Repository:** https://github.com/akankshaGupta-3am/bioeconomic-terrarium
+**Repository:** https://github.com/AIpsychonaut/bioeconomic-terrarium
 
 ---
 
