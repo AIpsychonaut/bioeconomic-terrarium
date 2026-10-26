@@ -3,6 +3,9 @@ __pycache__/
 *.pyc
 .claude/
 paper_draft.md
+paper_v2.md
+build_pdf.py
+paper/paper.md
 paper/*.aux
 paper/*.log
 paper/*.out
